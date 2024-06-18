@@ -8,7 +8,7 @@ from rest_framework.permissions import (IsAuthenticated,
 from api.permissions import IsAuthor
 from api.serializers import (CommentSerializer, FollowSerializer,
                              GroupSerializer, PostSerializer)
-from posts.models import Group, Post, User
+from posts.models import Group, Post
 
 
 class PostViewSet(viewsets.ModelViewSet):
@@ -47,7 +47,7 @@ class GroupViewSet(viewsets.ReadOnlyModelViewSet):
 
 class FollowListCreateView(ListCreateAPIView):
     """Работает с подпиской."""
-    
+
     serializer_class = FollowSerializer
     permission_classes = (IsAuthenticated, )
     filter_backends = (SearchFilter, )
