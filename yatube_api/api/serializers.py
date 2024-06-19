@@ -10,6 +10,7 @@ from posts.models import Comment, Follow, Group, Post, User
 
 class Base64ImageField(serializers.ImageField):
     """Декодирует изображение из base64."""
+
     def to_internal_value(self, data):
         if isinstance(data, str) and data.startswith('data:image'):
             format, imgstr = data.split(';base64,')
@@ -56,9 +57,12 @@ class FollowSerializer(serializers.ModelSerializer):
 
     user = serializers.SlugRelatedField(
         slug_field='username', read_only=True,
-        default=serializers.CurrentUserDefault())
-    following = serializers.SlugRelatedField(slug_field='username',
-                                             queryset=User.objects.all())
+        default=serializers.CurrentUserDefault()
+    )
+    following = serializers.SlugRelatedField(
+        slug_field='username',
+        queryset=User.objects.all()
+    )
 
     class Meta:
         model = Follow
@@ -74,5 +78,6 @@ class FollowSerializer(serializers.ModelSerializer):
     def validate(self, data):
         if self.context['request'].user == data['following']:
             raise serializers.ValidationError(
-                'Невозможно оформить подписку на самого себя')
+                'Невозможно оформить подписку на самого себя'
+            )
         return data
