@@ -2,7 +2,7 @@ from django.contrib.auth import get_user_model
 from django.db import models
 
 LENGTH_TO_DISPLAY = 25
-# Длина для отображения текста в админке
+"""Длина для отображения текста в админке."""
 
 User = get_user_model()
 
